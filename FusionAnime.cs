@@ -1,27 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 
-public struct AnimeInfo
-{
-    public string anim_src_name;
-    public float src_time { get { return (src_sec + src_frame / 30.0f); } }
-    public float dst_time { get { return (dst_sec + dst_frame / 30.0f); } }
-
-    private int src_sec;
-    private int src_frame;
-    private int dst_sec;
-    private int dst_frame;
-
-    public AnimeInfo(string anim_name, int src_sec, int src_frame, int dst_sec, int dst_frame)
-    {
-        this.anim_src_name = anim_name;
-        this.src_sec = src_sec;
-        this.src_frame = src_frame;
-        this.dst_sec = dst_sec;
-        this.dst_frame = dst_frame;
-    }
-}
-
 public class FusionAnime : MonoBehaviour
 {
     const string assetPathPrefix  = "Assets/";
@@ -35,17 +14,38 @@ public class FusionAnime : MonoBehaviour
         AssetDatabase.Refresh();
     }
 
+    public struct FusionInfo
+    {
+        public string anim_src_name;
+        public float src_time { get { return (src_sec + src_frame / 30.0f); } }
+        public float dst_time { get { return (dst_sec + dst_frame / 30.0f); } }
+
+        private int src_sec;
+        private int src_frame;
+        private int dst_sec;
+        private int dst_frame;
+
+        public FusionInfo(string anim_name, int src_sec, int src_frame, int dst_sec, int dst_frame)
+        {
+            this.anim_src_name = anim_name;
+            this.src_sec = src_sec;
+            this.src_frame = src_frame;
+            this.dst_sec = dst_sec;
+            this.dst_frame = dst_frame;
+        }
+    }
+
     [MenuItem("Assets/AnimeFusion")]
     static void CopyCurvesToDuplicate()
     {
         // Edit here
-        AnimeInfo[] animeInfo = { new AnimeInfo("die_copy.anim", 0,  3 , 0, 0),
-                                  new AnimeInfo("die_copy.anim", 0,  5 , 0, 5),
-                                  new AnimeInfo("die_copy.anim", 0,  4 , 0, 10),
-                                  new AnimeInfo("die_copy.anim", 0,  5 , 0, 15),
-                                  new AnimeInfo("die_copy.anim", 0,  4 , 0, 20),
-                                  new AnimeInfo("die_copy.anim", 0,  5 , 0, 25),
-                                  new AnimeInfo("die_copy.anim", 0,  4 , 1, 20) };
+        FusionInfo[] animeInfo = { new FusionInfo("die_copy.anim", 0,  3 , 0, 0),
+                                  new FusionInfo("die_copy.anim", 0,  5 , 0, 5),
+                                  new FusionInfo("die_copy.anim", 0,  4 , 0, 10),
+                                  new FusionInfo("die_copy.anim", 0,  5 , 0, 15),
+                                  new FusionInfo("die_copy.anim", 0,  4 , 0, 20),
+                                  new FusionInfo("die_copy.anim", 0,  5 , 0, 25),
+                                  new FusionInfo("die_copy.anim", 0,  4 , 1, 20) };
 
         AnimationClipCurveData[][] curveDatasSrc = new AnimationClipCurveData[animeInfo.Length][];
         AnimationClip imported0 = (AnimationClip)AssetDatabase.LoadAssetAtPath(assetPathPrefix + animeInfo[0].anim_src_name, typeof(AnimationClip));
@@ -102,7 +102,7 @@ public class FusionAnime : MonoBehaviour
         string importedPath = AssetDatabase.GetAssetPath(imported0);
         string fusionPath = "Assets/" + outputName;
         CopyClip(importedPath, fusionPath);
-       fusionClip = AssetDatabase.LoadAssetAtPath(fusionPath, typeof(AnimationClip)) as AnimationClip;
+        fusionClip = AssetDatabase.LoadAssetAtPath(fusionPath, typeof(AnimationClip)) as AnimationClip;
         if (fusionClip == null)
         {
             Debug.Log("No copy found at " + fusionPath);
