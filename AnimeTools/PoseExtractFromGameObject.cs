@@ -3,20 +3,6 @@ using UnityEngine;
 
 public class ExtractPoseFromGameObject : MonoBehaviour
 {
-    struct TransformParams
-    {
-        public float posX;
-        public float posY;
-        public float posZ;
-        public float rotX;
-        public float rotY;
-        public float rotZ;
-        public float rotW;
-        public float scaX;
-        public float scaY;
-        public float scaZ;
-    }
-
     static void setEditorCurveRecursive(
         Transform transform,
         string parentPath,
