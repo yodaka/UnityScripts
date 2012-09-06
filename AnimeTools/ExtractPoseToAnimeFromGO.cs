@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class ExtractPoseFromGameObject : MonoBehaviour
+public class ExtractPoseToAnimeFromGO : MonoBehaviour
 {
     static void setEditorCurveRecursive(
         Transform transform,
@@ -138,7 +138,7 @@ public class ExtractPoseFromGameObject : MonoBehaviour
         }
     }
 
-    [MenuItem("AnimeTools/Extract pose from selected Gameobject")]
+    [MenuItem("AnimeTool/Extract pose to anime from selected Gameobject")]
     static void TestFunc()
     {
         GameObject gameObj = Selection.activeGameObject;
